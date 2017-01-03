@@ -33,8 +33,8 @@ app.get('/todos', authenticate, (req, res) => {
     Todo.find({
         _creator: req.user._id
     }).then((todos) => {
-        res.header('Access-Control-Allow-Origin', 'http://localhost/3000')
-            .send({todos});
+        req.header('Access-Control-Allow-Origin', 'http://localhost/3000');
+        res.send({todos});
     }, (e) => {
         res.status(400).send(e);
     });
