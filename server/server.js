@@ -16,6 +16,12 @@ const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.post('/todos', authenticate, (req, res) => {
     var todo = new Todo({
         text: req.body.text,
@@ -33,7 +39,6 @@ app.get('/todos', authenticate, (req, res) => {
     Todo.find({
         _creator: req.user._id
     }).then((todos) => {
-        req.header('Access-Control-Allow-Origin', 'http://localhost/3000');
         res.send({todos});
     }, (e) => {
         res.status(400).send(e);
