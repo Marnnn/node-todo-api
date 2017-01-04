@@ -24,6 +24,7 @@ app.use(function(req, res, next) {
 
 app.post('/todos', authenticate, (req, res) => {
     var todo = new Todo({
+        title: req.body.title,
         text: req.body.text,
         _creator: req.user._id
     });
@@ -87,7 +88,7 @@ app.delete('/todos/:id', authenticate, (req, res) => {
 
 app.patch('/todos/:id', authenticate, (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['text', 'completed']);
+    var body = _.pick(req.body, ['title', 'text', 'completed']);
 
     if (!ObjectID.isValid(id)) {
         return res.status(404).send();

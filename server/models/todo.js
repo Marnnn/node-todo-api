@@ -1,6 +1,12 @@
 var mongoose = require('mongoose');
 
 var Todo = mongoose.model('Todo', {
+    title: {
+        type: String,
+        required: true,
+        minlength: 1,
+        trim: true
+    },
     text: {
         type: String,
         required: true,
@@ -18,6 +24,14 @@ var Todo = mongoose.model('Todo', {
     _creator: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
+    },
+    assignee: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: null
+    },
+    dueAt: {
+        type: Number,
+        default: null
     }
 });
 
